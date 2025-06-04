@@ -1,0 +1,37 @@
+name: nutrition_tracker
+description: Трекер питания
+
+environment:
+  sdk: ">=2.17.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Локализации Flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # Ваши пакеты
+  provider: ^6.1.5
+  intl: ^0.19.0
+  shared_preferences: ^2.1.1
+  sqflite: ^2.2.8+3
+  path_provider: ^2.0.15
+  http: ^0.13.5
+  flutter_typeahead: ^4.1.1
+  share_plus: ^11.0.0
+  table_calendar: ^3.0.9
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+flutter:
+  uses-material-design: true
+
+  # ваши assets, если есть
+  # assets:
+  #   - assets/images/
+
