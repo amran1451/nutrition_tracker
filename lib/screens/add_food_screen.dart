@@ -71,21 +71,26 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
     final prodProv = context.read<ProductProvider>();
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
-      child: TypeAheadFormField<Product>(
-        textFieldConfiguration: TextFieldConfiguration(
-          controller: _nameCtrl,
-          decoration: InputDecoration(
-            labelText: 'Название продукта',
-            hintText: 'Начните вводить название',
-            suffixIcon: IconButton(
-              icon: const Icon(Icons.add),
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (_) => const AddProductScreen()))
-                  .then((_) => prodProv.loadAll()),
-            ),
-          ),
-        ),
+       child: TypeAheadField<Product>(
+              controller: _nameCtrl,
         suggestionsCallback: (pattern) => prodProv.searchProducts(pattern),
+        builder: (context, controller, focusNode) {
+                  return TextFormField(
+                    controller: controller,
+                    focusNode: focusNode,
+                    decoration: InputDecoration(
+                      labelText: 'Название продукта',
+                      hintText: 'Начните вводить название',
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.add),
+                        onPressed: () => Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (_) => const AddProductScreen()))
+                            .then((_) => prodProv.loadAll()),
+                      ),
+                    ),
+                    validator: (v) => v == null || v.isEmpty ? 'Введите название' : null,
+                  );
+                },
         itemBuilder: (context, suggestion) => ListTile(
           title: Text(suggestion.name),
           subtitle: Text(
@@ -95,15 +100,14 @@ class _AddFoodScreenState extends State<AddFoodScreen> {
             '${suggestion.carbs.toStringAsFixed(1)}У',
           ),
         ),
-        onSuggestionSelected: (Product p) {
+        onSelected: (Product p) {
           _selectedProduct = p;
           _nameCtrl.text   = p.name;
           const initialGrams = 100.0;
           _gramsCtrl.text   = initialGrams.toStringAsFixed(0);
           _onGramsChanged(_gramsCtrl.text);
         },
-        noItemsFoundBuilder: (_) => const ListTile(title: Text('Ничего не найдено')),
-        validator: (v) => v == null || v.isEmpty ? 'Введите название' : null,
+        emptyBuilder: (_) => const ListTile(title: Text('Ничего не найдено')),
       ),
     );
   }
