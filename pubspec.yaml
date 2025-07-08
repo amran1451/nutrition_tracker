@@ -23,6 +23,18 @@ dependencies:
   share_plus: ^11.0.0
   table_calendar: ^3.0.9
 
+  digital_diary_app:
+    path: ../digital_diary_app
+
+  finance_tracker:
+    path: ../finance_tracker
+
+  planner_app:
+    path: ../planner_app
+
+  workout_app:
+    path: ../workout_app
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
